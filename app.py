@@ -41,7 +41,7 @@ def load_model(model_name):
 
 def main():
 
-    st.title("FYP is easy AF, there is always something to improve in everything..")
+    st.title("Upload a CV and check if the canditate is relevant to the role..")
 
     models = {
         "sampathkethineedi/industry-classification": "DistilBERT Model to classify a business description into one of 62 industry tags.",
