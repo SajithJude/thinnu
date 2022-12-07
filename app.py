@@ -38,7 +38,7 @@ def main():
     stop_words = set(stopwords.words('english'))
 
     tokeni = RegexpTokenizer('\w+')
-    uploaded_file = st.file_uploader("Choose a file", "pdf")
+    uploaded_file = st.file_uploader("Upload a file (less than 3000 words per doc)", "pdf")
     if uploaded_file is not None:
         tect = extract_text(uploaded_file)
         tokans = tokeni.tokenize(tect)
