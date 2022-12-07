@@ -17,13 +17,6 @@ from nltk.corpus import stopwords
 import streamlit as st
 
 
-# from PIL import Image
-# from streamlit import components
-# import transformers_interpret
-# import transformers
-# from streamlit.caching import clear_cache
-# from transformers import AutoModelForSequenceClassification, AutoTokenizer
-# from transformers_interpret import SequenceClassificationExplainer
 
 os.environ["TOKENIZERS_PARALLELISM"] = "false"
 logging.basicConfig(
@@ -35,17 +28,11 @@ def print_memory_usage():
     logging.info(f"RAM memory % used: {psutil.virtual_memory()[2]}")
 
 
-# @st.cache(allow_output_mutation=True, suppress_st_warning=True, max_entries=1)
-# def load_model(model_name):
-#     return (
-#         AutoModelForSequenceClassification.from_pretrained(model_name),
-#         AutoTokenizer.from_pretrained(model_name),
-#     )
-
 
 def main():
 
-    st.title("Upload a CV and check if the canditate is relevant to the role..")
+    st.title("Upload a document and generate questions to stimulate a discussion from it..")
+    num =   st.slider("how many questions do you want to generate ?",min_value=6,max_value=30)
 
     
     stop_words = set(stopwords.words('english'))
@@ -75,7 +62,7 @@ def main():
 
         response = openai.Completion.create(
         model="text-davinci-002",
-        prompt="Create a list of 10 questions to stimulate discussion from the given text" + info  + "Include references to specific parts of the text in the questions, and invite students to refer to specific sentences from the text.",
+        prompt="Create a list of " + num + " questions to stimulate discussion from the given text" + info  + "Include references to specific parts of the text in the questions, and invite students to refer to specific sentences from the text.",
         temperature=0.56,
         max_tokens=2066,
         top_p=1,
@@ -83,29 +70,7 @@ def main():
         presence_penalty=0
         )
         st.write(response.choices[0].text)
-        # st.text("Output")
-        # with st.spinner("Interpreting your text (This may take some time)"):
-        #     if explanation_class_choice != "predicted":
-        #         word_attributions = cls_explainer(
-        #             info,
-        #             class_name=explanation_class_choice,
-        #             embedding_type=emb_type_num,
-        #             internal_batch_size=2,
-        #         )
-        #     else:
-        #         word_attributions = cls_explainer(
-        #             info, embedding_type=emb_type_num, internal_batch_size=2
-        #         )
 
-        # if word_attributions:
-        #     word_attributions_expander = st.beta_expander(
-        #         "Click here for raw word attributions"
-        #     )
-        #     with word_attributions_expander:
-        #         st.json(word_attributions)
-        #     components.v1.html(
-        #         cls_explainer.visualize()._repr_html_(), scrolling=True, height=350
-        #     )
 
 
 if __name__ == "__main__":
