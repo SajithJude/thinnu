@@ -4,6 +4,8 @@ import streamlit as st
 import openai
 import os
 
+st.title("Paste any URL and use it as a knowledge base to MCQ generate questions with answers..")
+st.text("#adjust the slider  to fine tune the number of questions you want in the output")
 
 url= st.text_input("enter the url you need to fetch data from")
 num =   st.slider("how many questions do you want to generate ?",min_value=6,max_value=30)
