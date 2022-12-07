@@ -16,7 +16,6 @@ from nltk.corpus import stopwords
 
 import streamlit as st
 
-openai.api_key = ('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')
 
 # from PIL import Image
 # from streamlit import components
@@ -110,4 +109,6 @@ def main():
 
 
 if __name__ == "__main__":
+    openai.api_key = ('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')
+
     main()
