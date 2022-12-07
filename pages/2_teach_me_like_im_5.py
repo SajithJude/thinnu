@@ -23,4 +23,4 @@ if st.button("analyze and sumamarize"):
     presence_penalty=0
     )
     st.write(response.choices[0].text)
-    st.write(response)
+    # st.write(response)
