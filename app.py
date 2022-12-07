@@ -63,7 +63,7 @@ def main():
             if w not in stop_words:
                 filtered_sentence.append(w)
         my_lst_str = ' '.join(map(str, filtered_sentence))
-        info = (my_lst_str[:350] + '..') if len(my_lst_str) > 350 else my_lst_str
+        info = (my_lst_str[:3500] + '..') if len(my_lst_str) > 3500 else my_lst_str
         st.write(info)
 
 
@@ -75,7 +75,7 @@ def main():
 
         response = openai.Completion.create(
         model="text-davinci-002",
-        prompt="Create a list of 10 questions to stimulate discussion from the given text" + tect  + "Include references to specific parts of the text in the questions, and invite students to refer to specific sentences from the text.",
+        prompt="Create a list of 10 questions to stimulate discussion from the given text" + info  + "Include references to specific parts of the text in the questions, and invite students to refer to specific sentences from the text.",
         temperature=0.56,
         max_tokens=2066,
         top_p=1,
