@@ -67,7 +67,8 @@ def main():
         max_tokens=2066,
         top_p=1,
         frequency_penalty=0.35,
-        presence_penalty=0
+        presence_penalty=0,
+        stop=["\n"]
         )
         st.write(response.choices[0].text)
         st.write(response)
