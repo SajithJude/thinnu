@@ -81,8 +81,7 @@ def main():
         presence_penalty=0.0,
         stop=["\n"]
         )
-        st.write(res)
-
+        st.write(response)
         # st.text("Output")
         # with st.spinner("Interpreting your text (This may take some time)"):
         #     if explanation_class_choice != "predicted":
