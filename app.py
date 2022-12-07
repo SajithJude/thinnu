@@ -82,7 +82,7 @@ def main():
         frequency_penalty=0.35,
         presence_penalty=0
         )
-        st.write(response)
+        st.write(response.choices[0])
         # st.text("Output")
         # with st.spinner("Interpreting your text (This may take some time)"):
         #     if explanation_class_choice != "predicted":
