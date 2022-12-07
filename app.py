@@ -62,7 +62,7 @@ def main():
 
         response = openai.Completion.create(
         model="text-davinci-002",
-        prompt="Create a list of " + num + " questions to stimulate discussion from the given text" + info  + "Include references to specific parts of the text in the questions, and invite students to refer to specific sentences from the text.",
+        prompt="Create a list of " + str(num) + " questions to stimulate discussion from the given text" + info  + "Include references to specific parts of the text in the questions, and invite students to refer to specific sentences from the text.",
         temperature=0.56,
         max_tokens=2066,
         top_p=1,
