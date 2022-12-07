@@ -16,7 +16,7 @@ components.html(
 <body>
   <div class="container">
     <video class="input_video"></video>
-    <canvas class="output_canvas" width="1280px" height="720px"></canvas>
+    <canvas class="output_canvas" width="700px" height="400px"></canvas>
   </div>
   <script type="module">
 const videoElement = document.getElementsByClassName('input_video')[0];
