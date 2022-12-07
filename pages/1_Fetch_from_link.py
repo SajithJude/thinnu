@@ -22,7 +22,7 @@ if st.button("fetch data and generate mcq"):
     top_p=1,
     frequency_penalty=0.35,
     presence_penalty=0,
-    stop=["\n"]
+    # stop=["\n"]
     )
     st.write(response.choices[0].text)
     st.write(response)
