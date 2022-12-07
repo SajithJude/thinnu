@@ -69,7 +69,7 @@ def main():
         # print_memory_usage()
 
 
-        openai.api_key = os.getenv("OPENAI_API_KEY")
+        openai.api_key = "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"
 
         response = openai.Completion.create(
         model="text-davinci-003",
