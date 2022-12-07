@@ -15,6 +15,9 @@ nltk.download('stopwords')
 from nltk.corpus import stopwords
 
 import streamlit as st
+
+openai.api_key = "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"
+
 # from PIL import Image
 # from streamlit import components
 # import transformers_interpret
@@ -69,7 +72,6 @@ def main():
         # print_memory_usage()
 
 
-        openai.api_key = "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"
 
         response = openai.Completion.create(
         model="text-davinci-003",
