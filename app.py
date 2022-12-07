@@ -1,7 +1,9 @@
-import asyncio
-import gc
+# import asyncio
+# import gc
 import logging
 import os
+        # import os
+import openai
 # import pdfminer
 # from pdfminer.high_level import extract_pages
 from pdfminer.high_level import extract_text
@@ -13,13 +15,13 @@ nltk.download('stopwords')
 from nltk.corpus import stopwords
 
 import streamlit as st
-from PIL import Image
-from streamlit import components
+# from PIL import Image
+# from streamlit import components
 # import transformers_interpret
 # import transformers
 # from streamlit.caching import clear_cache
-from transformers import AutoModelForSequenceClassification, AutoTokenizer
-from transformers_interpret import SequenceClassificationExplainer
+# from transformers import AutoModelForSequenceClassification, AutoTokenizer
+# from transformers_interpret import SequenceClassificationExplainer
 
 os.environ["TOKENIZERS_PARALLELISM"] = "false"
 logging.basicConfig(
@@ -31,46 +33,17 @@ def print_memory_usage():
     logging.info(f"RAM memory % used: {psutil.virtual_memory()[2]}")
 
 
-@st.cache(allow_output_mutation=True, suppress_st_warning=True, max_entries=1)
-def load_model(model_name):
-    return (
-        AutoModelForSequenceClassification.from_pretrained(model_name),
-        AutoTokenizer.from_pretrained(model_name),
-    )
+# @st.cache(allow_output_mutation=True, suppress_st_warning=True, max_entries=1)
+# def load_model(model_name):
+#     return (
+#         AutoModelForSequenceClassification.from_pretrained(model_name),
+#         AutoTokenizer.from_pretrained(model_name),
+#     )
 
 
 def main():
 
     st.title("Upload a CV and check if the canditate is relevant to the role..")
-
-    models = {
-        "sampathkethineedi/industry-classification": "DistilBERT Model to classify a business description into one of 62 industry tags.",
-    }
-    model_name = st.sidebar.selectbox(
-        "Choose a classification model", list(models.keys())
-    )
-    model, tokenizer = load_model(model_name)
-    if model_name.startswith("textattack/"):
-        model.config.id2label = {0: "NEGATIVE (0) ", 1: "POSITIVE (1)"}
-    model.eval()
-    cls_explainer = SequenceClassificationExplainer(model=model, tokenizer=tokenizer)
-    if cls_explainer.accepts_position_ids:
-        emb_type_name = st.sidebar.selectbox(
-            "Choose embedding type for attribution.", ["word", "position"]
-        )
-        if emb_type_name == "word":
-            emb_type_num = 0
-        if emb_type_name == "position":
-            emb_type_num = 1
-    else:
-        emb_type_num = 0
-
-    explanation_classes = ["predicted"] + list(model.config.label2id.keys())
-    explanation_class_choice = st.sidebar.selectbox(
-        "Explanation class: The class you would like to explain output with respect to.",
-        explanation_classes,
-    )
-    # my_expander = st.beta_expander(
 
     
     stop_words = set(stopwords.words('english'))
@@ -92,32 +65,46 @@ def main():
         st.write(info)
 
 
-    if st.button("Interpret document"):
-        print_memory_usage()
+    # if st.button("Interpret document"):
+    #     print_memory_usage()
 
-        st.text("Output")
-        with st.spinner("Interpreting your text (This may take some time)"):
-            if explanation_class_choice != "predicted":
-                word_attributions = cls_explainer(
-                    info,
-                    class_name=explanation_class_choice,
-                    embedding_type=emb_type_num,
-                    internal_batch_size=2,
-                )
-            else:
-                word_attributions = cls_explainer(
-                    info, embedding_type=emb_type_num, internal_batch_size=2
-                )
 
-        if word_attributions:
-            word_attributions_expander = st.beta_expander(
-                "Click here for raw word attributions"
-            )
-            with word_attributions_expander:
-                st.json(word_attributions)
-            components.v1.html(
-                cls_explainer.visualize()._repr_html_(), scrolling=True, height=350
-            )
+        openai.api_key = os.getenv("OPENAI_API_KEY")
+
+        response = openai.Completion.create(
+        model="text-davinci-003",
+        prompt=info,
+        temperature=0,
+        max_tokens=100,
+        top_p=1,
+        frequency_penalty=0.0,
+        presence_penalty=0.0,
+        stop=["\n"]
+        )
+
+        # st.text("Output")
+        # with st.spinner("Interpreting your text (This may take some time)"):
+        #     if explanation_class_choice != "predicted":
+        #         word_attributions = cls_explainer(
+        #             info,
+        #             class_name=explanation_class_choice,
+        #             embedding_type=emb_type_num,
+        #             internal_batch_size=2,
+        #         )
+        #     else:
+        #         word_attributions = cls_explainer(
+        #             info, embedding_type=emb_type_num, internal_batch_size=2
+        #         )
+
+        # if word_attributions:
+        #     word_attributions_expander = st.beta_expander(
+        #         "Click here for raw word attributions"
+        #     )
+        #     with word_attributions_expander:
+        #         st.json(word_attributions)
+        #     components.v1.html(
+        #         cls_explainer.visualize()._repr_html_(), scrolling=True, height=350
+        #     )
 
 
 if __name__ == "__main__":
