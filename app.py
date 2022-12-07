@@ -16,7 +16,7 @@ from nltk.corpus import stopwords
 
 import streamlit as st
 
-openai.api_key = "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"
+openai.api_key = "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"
 
 # from PIL import Image
 # from streamlit import components
