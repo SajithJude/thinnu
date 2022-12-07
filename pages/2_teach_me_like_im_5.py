@@ -4,6 +4,8 @@ import streamlit as st
 import openai
 import os
 
+st.title("Paste any URL and generate a very simple explanation trhat even a 5 year old kid would understand..")
+
 
 url= st.text_input("enter the url you need to fetch data from")
 
