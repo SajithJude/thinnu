@@ -69,7 +69,7 @@ def main():
     #     print_memory_usage()
 
 
-        openai.api_key = os.getenv("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")
+        openai.api_key = os.getenv("OPENAI_API_KEY")
 
         response = openai.Completion.create(
         model="text-davinci-003",
@@ -81,7 +81,7 @@ def main():
         presence_penalty=0.0,
         stop=["\n"]
         )
-        st.write(response)
+        st.write(res)
 
         # st.text("Output")
         # with st.spinner("Interpreting your text (This may take some time)"):
