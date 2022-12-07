@@ -70,6 +70,7 @@ def main():
     if st.button("Interpret document"):
         # print_memory_usage()
 
+        openai.api_key =  os.getenv("OPENAI_API_KEY")
 
 
         response = openai.Completion.create(
