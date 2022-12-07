@@ -109,6 +109,6 @@ def main():
 
 
 if __name__ == "__main__":
-    openai.api_key = ('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')
+    openai.api_key =  os.getenv("OPENAI_API_KEY")
 
     main()
