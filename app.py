@@ -70,6 +70,8 @@ def main():
         presence_penalty=0
         )
         st.write(response.choices[0].text)
+        st.write(response)
+
 
 
 
