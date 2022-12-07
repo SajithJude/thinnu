@@ -67,7 +67,7 @@ def main():
         st.write(info)
 
 
-    if st.button("Interpret document"):
+    if st.button("Generate questions from document"):
         # print_memory_usage()
 
         openai.api_key =  os.getenv("OPENAI_API_KEY")
