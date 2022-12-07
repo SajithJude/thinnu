@@ -74,14 +74,13 @@ def main():
 
 
         response = openai.Completion.create(
-        model="text-davinci-003",
-        prompt=tect,
-        temperature=0,
-        max_tokens=100,
+        model="text-davinci-002",
+        prompt="Create a list of 10 questions to stimulate discussion from the given text" + tect  + "Include references to specific parts of the text in the questions, and invite students to refer to specific sentences from the text.",
+        temperature=0.56,
+        max_tokens=2066,
         top_p=1,
-        frequency_penalty=0.0,
-        presence_penalty=0.0,
-        stop=["\n"]
+        frequency_penalty=0.35,
+        presence_penalty=0
         )
         st.write(response)
         # st.text("Output")
