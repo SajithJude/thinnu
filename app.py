@@ -75,7 +75,7 @@ def main():
 
         response = openai.Completion.create(
         model="text-davinci-003",
-        prompt=info,
+        prompt=tect,
         temperature=0,
         max_tokens=100,
         top_p=1,
